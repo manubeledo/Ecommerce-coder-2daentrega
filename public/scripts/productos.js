@@ -22,7 +22,7 @@ items.addEventListener('click', e => {
 
 const fetchData = async () => {
     try{
-        const res = await fetch('../database/productos.json');
+        const res = await fetch('http://localhost:8080/api/productos');
         const data = await (res.json());
         console.log(data);
         pintarCards(data);
@@ -33,7 +33,7 @@ const fetchData = async () => {
 
 const carritosData = async () => {
     try{
-        const res = await fetch('../database/buycarritos.json');
+        const res = await fetch('http://localhost:8080/api/carritos');
         const data = await res.json();
     } catch(err) {
         console.log(err)
@@ -48,7 +48,7 @@ const pintarCards = data => {
         templateCard.getElementById('card-price').textContent = producto.price
         templateCard.getElementById('card-stock').textContent = producto.stock
         templateCard.getElementById('card-img').src= producto.thumbnail
-        templateCard.querySelector('.btn-dark').dataset.id = producto.id
+        templateCard.querySelector('.btn-dark').dataset.id = producto.id_productos
 
         const clone = templateCard.cloneNode(true)
         fragment.appendChild(clone)
@@ -156,7 +156,22 @@ const pintarFooter = () => {
         let date = Date.now()
         datos = [id, date]
         carritos[datos] = carrito;
-        console.log(carritos);
+        let compra = Object.values(carrito)
+        console.log(compra)
+        
+
+        let newCompra = compra.map( (producto, index) => {
+            console.log(producto[index])
+            // producto.cantidad
+        })
+        
+        console.log(newCompra)
+
+        // let compra = [date, ]
+        // console.log(carritos);
+        // console.log(carrito)
+        // console.log(carritos)
+
         index++
         carrito = {}
         await buyCarritos()

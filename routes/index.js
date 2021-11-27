@@ -1,51 +1,78 @@
-const fs = require("fs");
-const { Router } = require("express");
-const Contenedor = require('../public/components/contenedor')
+// const Contenedor = require('../public/components/contenedor')
+// const fs = require("fs");
+let controllersProductos = require('../controllers/controllers.productos')
+// let controllersCarritos = require('../controllers/controllers.carritos')
 let passport = require('passport');
-const router = Router();
+const { Router } = require("express");
+const router = Router(); 
 
 function serverRouter(app){
     app.use("/api", router);
 
     // Cargo los productos por la URL /api/productos desde el HTML y los guarda en productos.txt //
-    router.post('/productos', (req, res) => {
-        (async () => {
-            try {
-                if (fs.existsSync('./public/database/productos.json')){
-                    new Contenedor(`${req.body.name}`, `${req.body.description}`, `${req.body.price}`, `${req.body.thumbnail}`, `${req.body.stock}`);
-                    let productos = JSON.parse(await fs.promises.readFile('./public/database/productos.json', 'utf-8'))
-                    let datos = req.body
-                    productos[productos.length] = { ...datos }
-                    let data = JSON.stringify(productos)
-                    fs.writeFile('./public/database/productos.json', data, function (err) {
-                        if (err) throw err;
-                        console.log('Nuevo producto almacenado!');
-                      });
-                } else {
-                    new Contenedor(`${req.body.name}`, `${req.body.description}`, `${req.body.price}`, `${req.body.thumbnail}`, `${req.body.stock}`);
-                    let data = JSON.stringify(Contenedor.productos);
-                    await fs.promises.writeFile('./public/database/productos.json', data);
-                }
-                res.redirect('./index')
-            }
-            catch(err){
-                console.log(err);
-            }
-        })();
-    });
+
+    router.post('/productos', controllersProductos.write);
+    router.get('/productos', controllersProductos.read);
+    router.put('/updateproductos', controllersProductos.update);
+    router.delete('/deleteproductos', controllersProductos.deleted);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // funciona de aca para abajo // 
+
+
+
+    // router.post('/productos', (req, res) => {
+    //     (async () => {
+    //         try {
+    //             if (fs.existsSync('./public/database/productos.json')){
+    //                 new Contenedor(`${req.body.name}`, `${req.body.description}`, `${req.body.price}`, `${req.body.thumbnail}`, `${req.body.stock}`);
+    //                 let productos = JSON.parse(await fs.promises.readFile('./public/database/productos.json', 'utf-8'))
+    //                 let datos = req.body
+    //                 productos[productos.length] = { ...datos }
+    //                 let data = JSON.stringify(productos)
+    //                 fs.writeFile('./public/database/productos.json', data, function (err) {
+    //                     if (err) throw err;
+    //                     console.log('Nuevo producto almacenado!');
+    //                   });
+    //             } else {
+    //                 new Contenedor(`${req.body.name}`, `${req.body.description}`, `${req.body.price}`, `${req.body.thumbnail}`, `${req.body.stock}`);
+    //                 let data = JSON.stringify(Contenedor.productos);
+    //                 await fs.promises.writeFile('./public/database/productos.json', data);
+    //             }
+    //             res.redirect('./index')
+    //         }
+    //         catch(err){
+    //             console.log(err);
+    //         }
+    //     })();
+    // });
 
     // Me trae todos los productos por GET en un JSON //
-    router.get('/productos', (req, res) => {
-        (async () => {
-            try { 
-                let data = JSON.parse(await fs.promises.readFile('./public/database/productos.txt'));
-                res.json(data);
-            }
-            catch(err) {
-                console.log(err);
-                }
-        })();
-    });
+    // router.get('/productos', (req, res) => {
+    //     (async () => {
+    //         try { 
+    //             let data = JSON.parse(await fs.promises.readFile('./public/database/productos.txt'));
+    //             res.json(data);
+    //         }
+    //         catch(err) {
+    //             console.log(err);
+    //             }
+    //     })();
+    // });
 
     // Me trae todos los productos por id por GET en un JSON //
     router.get('/productos/:id', (req, res) => {
@@ -100,18 +127,18 @@ function serverRouter(app){
     }));
     
     // Cargo los productos por la URL /api/productos desde el HTML y los guarda en DB (productos.txt) //
-    router.post('/carrito', (req, res) => {
-        (async () => {
-            try {
-                let data = JSON.stringify(req.body);
-                await fs.promises.writeFile('./public/database/carritos.json', data);
-                res.redirect('./index')
-            }
-            catch(err){
-                console.log(err);
-            }
-        })();
-    });
+    // router.post('/carrito', (req, res) => {
+    //     (async () => {
+    //         try {
+    //             let data = JSON.stringify(req.body);
+    //             await fs.promises.writeFile('./public/database/carritos.json', data);
+    //             res.redirect('./index')
+    //         }
+    //         catch(err){
+    //             console.log(err);
+    //         }
+    //     })();
+    // });
 
     router.post('/buycarritos', (req, res) => {
         (async () => {
