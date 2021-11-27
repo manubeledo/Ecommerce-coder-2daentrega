@@ -1,7 +1,7 @@
 // const Contenedor = require('../public/components/contenedor')
 // const fs = require("fs");
 let controllersProductos = require('../controllers/controllers.productos')
-// let controllersCarritos = require('../controllers/controllers.carritos')
+let controllersCarritos = require('../controllers/controllers.carritos')
 let passport = require('passport');
 const { Router } = require("express");
 const router = Router(); 
@@ -18,6 +18,8 @@ function serverRouter(app){
 
 
 
+    router.post('/carritos', controllersCarritos.write);
+    
 
 
 
@@ -140,25 +142,6 @@ function serverRouter(app){
     //     })();
     // });
 
-    router.post('/buycarritos', (req, res) => {
-        (async () => {
-            try {
-                if (fs.existsSync('./public/buycarritos.json')) {
-                    let data = JSON.stringify(req.body);
-                    console.log("DATA", data)
-                    await fs.promises.writeFile('./public/database/buycarritos.json', data);
-                    res.redirect('./index')
-                } else {
-                    let data = JSON.stringify(req.body);
-                    await fs.promises.writeFile('./public/database/buycarritos.json', data);
-                    res.redirect('./index')
-                }
-            }
-            catch(err){
-                console.log(err);
-            }
-        })();
-    })
 
     router.get('/:id/productos', (req, res) => {
     });

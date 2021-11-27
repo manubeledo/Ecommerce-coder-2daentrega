@@ -32,7 +32,7 @@ mysql.schema.hasTable("carritos").then(function (exists) {
     if (!exists) {
       return mysql.schema.createTable("carritos", (table) => {
         table.increments(); 
-        table.integer("id_carrito", 128).notNullable()
+        table.integer("id_carrito", 255).notNullable()
         table.integer("id_producto", 128).notNullable()
         table.integer("cantidad", 128).notNullable()
       });

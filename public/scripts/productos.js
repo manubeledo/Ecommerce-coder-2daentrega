@@ -7,6 +7,7 @@ const templateCarrito = document.getElementById('template-carrito').content
 const fragment = document.createDocumentFragment()
 let carrito = {}
 let carritos = {}
+let compra = {}
 let index = 1;
 
 document.addEventListener('DOMContentLoaded', async () => { await fetchData() });
@@ -88,7 +89,7 @@ const createCarrito = async (objeto) => {
 
     console.log(carrito)
     
-    await refreshCar()
+    // await refreshCar()
     
     pintarCarrito()
 }
@@ -114,7 +115,7 @@ const pintarCarrito = async () => {
     })
     items.appendChild(fragment)
 
-    await refreshCar()
+    // await refreshCar()
     pintarFooter()
 
 }
@@ -153,24 +154,15 @@ const pintarFooter = () => {
     
     buy.addEventListener('click', async () => {
         let id = index;
-        let date = Date.now()
-        datos = [id, date]
-        carritos[datos] = carrito;
-        let compra = Object.values(carrito)
-        console.log(compra)
+        let id_carrito = Math.floor(Date.now()/1000)
+        // datos = [id, date]
+        // carritos[datos] = carrito;
         
-
-        let newCompra = compra.map( (producto, index) => {
-            console.log(producto[index])
-            // producto.cantidad
+        Object.values(carrito).forEach((producto, indice) => {
+            compra[indice] = {id_carrito, id_producto: Number(producto.id), cantidad: producto.cantidad}
         })
-        
-        console.log(newCompra)
+        console.log(compra)
 
-        // let compra = [date, ]
-        // console.log(carritos);
-        // console.log(carrito)
-        // console.log(carritos)
 
         index++
         carrito = {}
@@ -205,18 +197,18 @@ const btnAccion = e => {
     e.stopPropagation()
 }
 
-async function refreshCar(){
-    await fetch("http://localhost:8080/api/carrito", {
+async function buyCarritos(){
+    await fetch("http://localhost:8080/api/carritos", {
         method: 'POST', // or 'PUT'
-        body: JSON.stringify(carrito), // data can be `string` or {object}!
+        body: JSON.stringify(compra), // data can be `string` or {object}!
         headers:{ 'Content-Type': 'application/json' }
       })
 }
 
-async function buyCarritos(){
-    await fetch("http://localhost:8080/api/buycarritos", {
-        method: 'POST', // or 'PUT'
-        body: JSON.stringify(carritos), // data can be `string` or {object}!
-        headers:{ 'Content-Type': 'application/json' }
-      })
-}
+// async function refreshCar(){
+//     await fetch("http://localhost:8080/api/carrito", {
+//         method: 'POST', // or 'PUT'
+//         body: JSON.stringify(carrito), // data can be `string` or {object}!
+//         headers:{ 'Content-Type': 'application/json' }
+//       })
+// }
