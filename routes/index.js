@@ -1,7 +1,7 @@
 // const Contenedor = require('../public/components/contenedor')
 // const fs = require("fs");
-let controllersProductos = require('../controllers/controllers.productos')
-let controllersCarritos = require('../controllers/controllers.carritos')
+let controllersProductos = require('../controllers Mariadb/controllers.productos')
+let controllersCarritos = require('../controllers Mariadb/controllers.carritos')
 let passport = require('passport');
 const { Router } = require("express");
 const router = Router(); 
@@ -9,17 +9,16 @@ const router = Router();
 function serverRouter(app){
     app.use("/api", router);
 
-    // Cargo los productos por la URL /api/productos desde el HTML y los guarda en productos.txt //
 
-    router.post('/productos', controllersProductos.write);
-    router.get('/productos', controllersProductos.read);
-    router.put('/updateproductos', controllersProductos.update);
-    router.delete('/deleteproductos', controllersProductos.deleted);
-
+    router.post('/productos', controllersProductos.write)
+    router.get('/productos', controllersProductos.read)
+    router.put('/updateproductos', controllersProductos.update)
+    router.delete('/deleteproductos', controllersProductos.deleted)
 
 
-    router.post('/carritos', controllersCarritos.write);
-    
+    router.post('/carritos', controllersCarritos.write)
+    router.get('/carritos', controllersCarritos.read)
+    router.delete('/carritos/:id', controllersCarritos.deleted)
 
 
 

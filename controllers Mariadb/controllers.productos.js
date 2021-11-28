@@ -42,7 +42,6 @@ const deleted = async (req, res) => {
 }
 
 
-
 module.exports = {
     write,
     read,

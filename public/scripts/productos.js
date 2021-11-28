@@ -99,6 +99,7 @@ const createCarrito = async (objeto) => {
 const pintarCarrito = async () => {
     items.innerHTML = '';
     Object.values(carrito).forEach(producto => {
+        console.log(templateCarrito)
         templateCarrito.querySelector('th').textContent = producto.id
         templateCarrito.querySelectorAll('td')[0].textContent = producto.title
         templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
@@ -114,7 +115,6 @@ const pintarCarrito = async () => {
         fragment.appendChild(clone)
     })
     items.appendChild(fragment)
-
     // await refreshCar()
     pintarFooter()
 
@@ -153,18 +153,16 @@ const pintarFooter = () => {
     const buy = document.querySelector('#buy-carrito')
     
     buy.addEventListener('click', async () => {
-        let id = index;
+        // let id = index;
         let id_carrito = Math.floor(Date.now()/1000)
-        // datos = [id, date]
-        // carritos[datos] = carrito;
-        
+
+        // sessionStorage.setItem('id_carrito', id_carrito)
+
         Object.values(carrito).forEach((producto, indice) => {
             compra[indice] = {id_carrito, id_producto: Number(producto.id), cantidad: producto.cantidad}
         })
-        console.log(compra)
 
-
-        index++
+        // index++
         carrito = {}
         await buyCarritos()
         pintarCarrito()
@@ -205,10 +203,10 @@ async function buyCarritos(){
       })
 }
 
-// async function refreshCar(){
-//     await fetch("http://localhost:8080/api/carrito", {
-//         method: 'POST', // or 'PUT'
-//         body: JSON.stringify(carrito), // data can be `string` or {object}!
-//         headers:{ 'Content-Type': 'application/json' }
-//       })
-// }
+async function refreshCar(){
+    await fetch("http://localhost:8080/api/carrito", {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(carrito), // data can be `string` or {object}!
+        headers:{ 'Content-Type': 'application/json' }
+      })
+}

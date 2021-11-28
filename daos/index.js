@@ -1,7 +1,8 @@
+// require("dotenv").config();
 // let productosDao
 // let carritosDao
 
-// switch (process.env.PERS) {
+// (async () => { switch (process.env.PERS) {
 //     case 'json':
 //         const { default: ProductosDaoArchivo } = await import('./productos/ProductosDaoArchivo.js')
 //         const { default: CarritosDaoArchivo } = await import('./carritos/CarritosDaoArchivo.js')
@@ -44,6 +45,6 @@
 //         productosDao = new ProductosDaoMem()
 //         carritosDao = new CarritosDaoMem()
 //         break
-// }
+// }})();
 
-// export { productosDao, carritosDao }
+// module.exports = { productosDao }

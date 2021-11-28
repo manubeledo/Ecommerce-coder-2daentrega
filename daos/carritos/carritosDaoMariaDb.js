@@ -1,11 +1,21 @@
-// import CarritosDaoSQL from "./CarritosDaoSQL.js"
-// import config from '../../config.js'
+let { mysql: db } = require('../config/db')
 
-// class CarritosDaoMariaDb extends CarritosDaoSQL {
 
-//     constructor() {
-//         super(config.mariaDb, config.mariaDb)
-//     }
-// }
+const write = async (req, res) => {
+    try {
+        let carritos = req.body
+        console.log(carritos)
+        Object.values(carritos).forEach(async (carrito) => {
+            await db('carritos').insert(carrito)
+        })
+        res.redirect('./index')
+        }
+    
+    catch(err){
+        console.log(err);
+    }
+}
 
-// export default CarritosDaoMariaDb
+module.exports = {
+    write
+}
