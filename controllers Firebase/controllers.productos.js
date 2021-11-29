@@ -1,7 +1,6 @@
 let { dbfirebase : db } = require('../config/db')
 
 
-
 const write = async (req, res) => {
 
     try{
@@ -23,6 +22,23 @@ const write = async (req, res) => {
     }
 }
 
+// NO ESTA CHECKEADO ESTO
+const read = async (req, res) => {
+
+    try{
+        const result = []
+        const snapshot = await this.coleccion.get();
+        snapshot.forEach(doc => {
+            result.push({ id: doc.id, ...doc.data() })
+            })
+        return result
+    }
+    catch(err){
+        console.log("ESTE ES EL ERROR", err)
+    }
+}
+
 module.exports = {
-    write
+    write,
+    read
 }
