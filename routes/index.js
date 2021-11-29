@@ -1,10 +1,19 @@
 // const Contenedor = require('../public/components/contenedor')
 // const fs = require("fs");
+
+
+// CONEXION SQLITE
+// let controllersProductos = require('../controllers Sqlite/controllers.productos')
+// let controllersCarritos = require('../controllers Sqlite/controllers.carritos')
+
+// CONEXION FIREBASE
 // let controllersCarritos = require('../controllers Firebase/controllers.carritos')
 // let controllersProductos = require('../controllers Firebase/controllers.productos')
 
+// CONEXION MARIADB
 let controllersProductos = require('../controllers Mariadb/controllers.productos')
 let controllersCarritos = require('../controllers Mariadb/controllers.carritos')
+
 let passport = require('passport');
 const { Router } = require("express");
 const router = Router(); 

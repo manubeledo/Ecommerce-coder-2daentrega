@@ -25,21 +25,27 @@ const fetchData = async () => {
     try{
         const res = await fetch('http://localhost:8080/api/productos');
         const data = await (res.json());
-        console.log(data);
+        console.log("FETCH DATA =>", data);
         pintarCards(data);
     } catch(err) {
         console.log("ERROR DESDE EL FETCH", err)
     }
 }
 
+// sessionStorage.setItem('carrito', JSON.stringify(carrito))
+// sessionStorage.getItem('carrito')
+
 const carritosData = async () => {
     try{
-        const res = await fetch('http://localhost:8080/api/carritos');
-        const data = await res.json();
+        if (sessionStorage.getItem('carrito') != ''){
+            carrito = JSON.parse(sessionStorage.getItem('carrito'))
+            pintarCarrito()
+        }
     } catch(err) {
         console.log(err)
     }
 }
+
 
 // SE CREAN LAS CARDS //
 const pintarCards = data => {
@@ -88,6 +94,8 @@ const createCarrito = async (objeto) => {
     carrito[producto.id] = {...producto}
 
     console.log(carrito)
+
+    sessionStorage.setItem('carrito', JSON.stringify(carrito))
     
     // await refreshCar()
     
@@ -117,7 +125,6 @@ const pintarCarrito = async () => {
     items.appendChild(fragment)
     // await refreshCar()
     pintarFooter()
-
 }
 
 // SE CREA EL FOOTER //
@@ -147,22 +154,19 @@ const pintarFooter = () => {
     const boton = document.querySelector('#vaciar-carrito')
     boton.addEventListener('click', () => {
         carrito = {}
+        refreshCar()
         pintarCarrito()
     })
 
     const buy = document.querySelector('#buy-carrito')
     
     buy.addEventListener('click', async () => {
-        // let id = index;
         let id_carrito = Math.floor(Date.now()/1000)
-
-        // sessionStorage.setItem('id_carrito', id_carrito)
 
         Object.values(carrito).forEach((producto, indice) => {
             compra[indice] = {id_carrito, id_producto: Number(producto.id), cantidad: producto.cantidad}
         })
 
-        // index++
         carrito = {}
         await buyCarritos()
         pintarCarrito()
@@ -176,6 +180,7 @@ const btnAccion = e => {
         const producto = carrito[e.target.dataset.id]
         producto.cantidad++
         carrito[e.target.dataset.id] = { ...producto }
+        sessionStorage.setItem('carrito', JSON.stringify(carrito))
         refreshCar()
         pintarCarrito()
     }
@@ -201,6 +206,7 @@ async function buyCarritos(){
         body: JSON.stringify(compra), // data can be `string` or {object}!
         headers:{ 'Content-Type': 'application/json' }
       })
+    sessionStorage.setItem('carrito', JSON.stringify(carrito))
 }
 
 async function refreshCar(){
@@ -209,4 +215,5 @@ async function refreshCar(){
         body: JSON.stringify(carrito), // data can be `string` or {object}!
         headers:{ 'Content-Type': 'application/json' }
       })
+    sessionStorage.setItem('carrito', JSON.stringify(carrito))
 }

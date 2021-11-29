@@ -48,13 +48,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:params', (req, res) => {
-        if (req.params.params !== carritos){
         let object = {
             error: -2,
             descripcion: `Ruta '/${req.params.params}' por metodo ${req.method} no implementada`
             }
             res.send(object)
-        }
 });
 
 serverRoutes(app);

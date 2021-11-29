@@ -22,22 +22,23 @@ const sqlite = { development: {
 
 // CONEXION A Firebase
 
-const admin = require("firebase-admin");
+// const admin = require("firebase-admin");
 
-const serviceAccount = require('./firebase config/firebaseconfig.json')
+// const serviceAccount = require('./firebase config/firebaseconfig.json')
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-})
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// })
 
-const dbfirebase = admin.firestore();
+// const dbfirebase = admin.firestore();
 
 // EXPORTANDO LAS BASES DE DATOS
 
 module.exports = { 
-  // mysql, 
-  // sqlite, 
-  dbfirebase };
+  mysql, 
+  sqlite 
+  // dbfirebase 
+};
 
 // CREACION DE TABLAS
 
