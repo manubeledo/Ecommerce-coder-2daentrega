@@ -1,10 +1,15 @@
 const db = require('./index')
 
+
+// CONEXION A MariaDB
+
 const mysql = require('knex')({
     client: 'mysql',
     connection: db,
     pool: {min:0, max:10}
 });
+
+// CONEXION A SQLITE
 
 const sqlite = { development: {
     client: 'sqlite3',
@@ -14,6 +19,22 @@ const sqlite = { development: {
   },
   useNullAsDefault: true
 };
+
+// CONEXION A Firebase
+
+const admin = require("firebase-admin");
+
+const serviceAccount = require("./firebase config/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+const dbfirebase = admin.firestore();
+
+
+
+// CREACION DE TABLAS
 
 mysql.schema.hasTable("productos").then(function (exists) {
     if (!exists) {
@@ -39,4 +60,4 @@ mysql.schema.hasTable("carritos").then(function (exists) {
     }
 });
 
-module.exports = { mysql, sqlite };
+module.exports = { mysql, sqlite, dbfirebase };
