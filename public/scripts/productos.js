@@ -27,7 +27,7 @@ const fetchData = async () => {
         console.log(data);
         pintarCards(data);
     } catch(err) {
-        console.log("ERROR DESDE EL FETCH", err)
+        console.log("ERROR DESDE EL FETCH, AGREGAR PRODUCTOS", err)
     }
 }
 

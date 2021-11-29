@@ -10,7 +10,7 @@ class Contenedor {
         this.thumbnail = thumbnail,
         this.stock = stock,
         this.id = Contenedor.id++
-        Contenedor.productos.push(this)
+        Contenedor.productos.push(this)        
     }
 }
 

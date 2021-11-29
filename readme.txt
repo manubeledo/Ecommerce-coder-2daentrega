@@ -2,5 +2,3 @@ PARA EL LOGIN USAR:
 
 USUARIO: admin
 PASSOWORD: 1234
-
-una nueva nota

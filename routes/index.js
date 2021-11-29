@@ -12,9 +12,9 @@ function serverRouter(app){
         (async () => {
             try {
                 if (fs.existsSync('./public/database/productos.json')){
-                    new Contenedor(`${req.body.name}`, `${req.body.description}`, `${req.body.price}`, `${req.body.thumbnail}`, `${req.body.stock}`);
+                    let datos = new Contenedor(`${req.body.name}`, `${req.body.description}`, `${req.body.price}`, `${req.body.thumbnail}`, `${req.body.stock}`);
                     let productos = JSON.parse(await fs.promises.readFile('./public/database/productos.json', 'utf-8'))
-                    let datos = req.body
+                    datos.id = productos.length + 1
                     productos[productos.length] = { ...datos }
                     let data = JSON.stringify(productos)
                     fs.writeFile('./public/database/productos.json', data, function (err) {
