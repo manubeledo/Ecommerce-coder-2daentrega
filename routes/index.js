@@ -13,7 +13,7 @@ function serverRouter(app){
     app.use("/api", router);
 
 
-    router.post('/productos', controllersProductos.write)
+    router.post('/productos', controllersProductos.write) // Firebase OK
     // router.get('/productos', controllersProductos.read)
     // router.put('/updateproductos', controllersProductos.update)
     // router.delete('/deleteproductos', controllersProductos.deleted)

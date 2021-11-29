@@ -10,12 +10,13 @@ const write = async (req, res) => {
     
     const ID = productCollection.doc()
     ID.set({
-        name: 'name',
-        description: 'description',
-        price: 'price',
-        thumbnail: 'thumbnail',
-        stock: 'stock'
-    });
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        thumbnail: req.body.thumbnail,
+        stock: req.body.stock
+        });
+    res.send("Producto almacenado con exito!")
     }
     catch(err){
         console.log("ESTE ES EL ERROR", err)
