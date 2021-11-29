@@ -24,15 +24,17 @@ const sqlite = { development: {
 
 const admin = require("firebase-admin");
 
-const serviceAccount = require("./firebase config/serviceAccountKey.json");
+const serviceAccount = require('./firebase config/firebaseconfig.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
-});
+})
 
 const dbfirebase = admin.firestore();
 
+// EXPORTANDO LAS BASES DE DATOS
 
+module.exports = { mysql, sqlite, dbfirebase };
 
 // CREACION DE TABLAS
 
@@ -60,4 +62,3 @@ mysql.schema.hasTable("carritos").then(function (exists) {
     }
 });
 
-module.exports = { mysql, sqlite, dbfirebase };
