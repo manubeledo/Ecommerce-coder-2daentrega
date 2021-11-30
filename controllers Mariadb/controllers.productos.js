@@ -41,10 +41,21 @@ const deleted = async (req, res) => {
     }
 }
 
+const deleteProduct = async (req, res) => {
+    try {
+        console.log(req.params.id)
+        await db('productos').where({ id_productos: req.params.id }).del()
+        res.send("DELETE OK")
+    }
+    catch (err){
+        console.log("ERROR EN ELIMINAR UN PRODUCTO", err)
+    }
+}
 
 module.exports = {
     write,
     read,
     update,
-    deleted
+    deleted,
+    deleteProduct
 }

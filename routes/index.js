@@ -26,6 +26,8 @@ function serverRouter(app){
     router.get('/productos', controllersProductos.read)
     router.put('/updateproductos', controllersProductos.update)
     router.delete('/deleteproductos', controllersProductos.deleted)
+    router.post('/producto/:id', controllersProductos.deleteProduct)
+
 
 
     router.post('/carritos', controllersCarritos.write)
