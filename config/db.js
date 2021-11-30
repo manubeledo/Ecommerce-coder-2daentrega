@@ -32,12 +32,33 @@ const sqlite = { development: {
 
 // const dbfirebase = admin.firestore();
 
+// CONEXION A MONGO
+
+// let mongoose = require ('mongoose');
+// const MONGO_DB = process.env.MONGO_DB_URI;
+// const DB_NAME = process.env.DB_NAME; // mismo nombre para todas las bases de datos
+
+// let connection = null;
+
+// (async ()=>{
+//     try {
+//         connection = await mongoose.connect(`${MONGO_DB}/${DB_NAME}`) // ver si va esta "/" barra en el medio, sino se agrega an el .env
+//     } catch (error) {
+//         console.log('error al conectarse a Mongo')
+        
+//     }
+// })()
+
+// module.exports = {}
+
 // EXPORTANDO LAS BASES DE DATOS
 
 module.exports = { 
   mysql, 
   sqlite 
-  // dbfirebase 
+  // dbfirebase,
+  // connection, 
+  // mongoose 
 };
 
 // CREACION DE TABLAS

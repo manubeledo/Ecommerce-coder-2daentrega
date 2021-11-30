@@ -5,10 +5,13 @@ const templateCard = document.getElementById('template-card').content
 const templateFooter = document.getElementById('template-footer').content
 const templateCarrito = document.getElementById('template-carrito').content
 const fragment = document.createDocumentFragment()
+sessionStorage.setItem('carrito', {})
 let carrito = {}
 let carritos = {}
 let compra = {}
 let index = 1;
+
+console.log(carrito)
 
 document.addEventListener('DOMContentLoaded', async () => { await fetchData() });
 document.addEventListener('DOMContentLoaded', () => { carritosData() });
@@ -86,14 +89,16 @@ const createCarrito = async (objeto) => {
         description: `una descripcion`,
         stock: 100
     }
+    
+    console.log(carrito)
+
+    console.log(producto.id)
 
     if(carrito.hasOwnProperty(producto.id)) {
         producto.cantidad = carrito[producto.id].cantidad + 1
     }
 
     carrito[producto.id] = {...producto}
-
-    console.log(carrito)
 
     sessionStorage.setItem('carrito', JSON.stringify(carrito))
     
