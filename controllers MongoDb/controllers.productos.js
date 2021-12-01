@@ -1,26 +1,56 @@
-const {productosModel} = require('../config/db')
+const { productosModel : db } = require('../config/db')
 
-async function createProducto (producto){
+ const write = async (req, res) => {
     try {
-        await productosModel.create(producto);
+        let producto = req.body
+        await db.create(producto);
+        res.send("Producto creado con exito!")
     } catch (error) {
         console.log('error en la creacion de producto' + error)
     }
-}
-async function readProducto (){
+ }
+
+const read = async (req, res) => {
     try {
-        return await productosModel.find()
+        let productos = await db.find()
+        res.json(productos)
     } catch (error) {
         console.log('error en la lectura de producto' + error)
     }
 }
-async function deleteProducto (id){
+
+const update = async (req, res) => {
     try {
-        await productosModel.detele(id)
-        return ('eliminado OK')
+        let filter = { id : req.body.id}
+        let newProduct = {
+            name : req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            thumbnail: req.body.thumbnail,
+            stock: req.body.stock
+        }
+        await db.updateOne(filter, newProduct)
+        res.json(`el producto con el id ${filter.id} ha sido modificado`)
+    } catch (error) {
+        console.log('error en la lectura de producto' + error)
+    }
+}
+
+const deleted = async (req, res) => {
+    try {
+        let { id } = req.body.id
+        await db.deleteOne(id)
+        res.send(`producto con el id ${id} eliminado`)
         
     } catch (error) {
         console.log('error eliminando producto' + error)
 
     }
+}
+
+module.exports = {
+    write,
+    read,
+    update,
+    deleted
 }

@@ -1,22 +1,29 @@
-const {carritosModel} = require('../config/db')
+const { carritosModel : db } = require('../config/db')
 
-function createCarrito (carrito){ //carrito debe ser un Array de objetos a guardar en el carrito
-           
+
+    const write = async (req, res) => {
         carrito.forEach(async (carrito, index)=>{
             try {
-               await carritosModel.create(carrito)     
-            } catch (error) {
-               console.log('error al guardar el item '+ index + error) 
-            }
+               await db.create(carrito)
+               res.send("Carrito creado con exito!")     
+                } 
+            catch (err) {
+               console.log('error al guardar el item ', err) 
+                }
         })
 }
 
-
-async function leerCarrito (){ //aca no me acuerdo como lo hicimos, si traiamos todo el array de la base y despues la mostrabamos...si es asi , esto deberia andar
+    const read = async (req, res) => {
         try {
-            return await carritosModel.find() 
-        } catch (error) {
-            console.log('error al leer los carritos')
+            let carritos = await db.find()
+            res.json(carritos) 
+            } 
+        catch (err) {
+            console.log('error al leer los carritos', err)
         }
+    }
 
+module.exports = {
+    write,
+    read
 }

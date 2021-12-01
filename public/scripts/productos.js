@@ -49,7 +49,6 @@ const carritosData = async () => {
     }
 }
 
-
 // SE CREAN LAS CARDS //
 const pintarCards = data => {
     data.forEach(producto => {
