@@ -1,29 +1,27 @@
-// const Contenedor = require('../public/components/contenedor')
-// const fs = require("fs");
-
-
-// CONEXION SQLITE
-// let controllersProductos = require('../controllers Sqlite/controllers.productos')
-// let controllersCarritos = require('../controllers Sqlite/controllers.carritos')
-
-// CONEXION FIREBASE
-// let controllersCarritos = require('../controllers Firebase/controllers.carritos')
-// let controllersProductos = require('../controllers Firebase/controllers.productos')
-
-// CONEXION MARIADB
-// let controllersProductos = require('../controllers Mariadb/controllers.productos')
-// let controllersCarritos = require('../controllers Mariadb/controllers.carritos')
-
-// CONEXION A MONGODB
-
-let controllersProductos = require('../controllers MongoDb/controllers.productos')
-let controllersCarritos = require('../controllers MongoDb/controllers.carritos')
-
+let database = 'mariadb';
 let passport = require('passport');
 const { Router } = require("express");
 const router = Router(); 
 
+//     case 'mariadb':
+        let controllersProductos = require('../controllers Mariadb/controllers.productos')
+        let controllersCarritos = require('../controllers Mariadb/controllers.carritos')
+    
+//     case 'firebase':
+//         controllersProductos = require('../controllers Firebase/controllers.productos')
+//         controllersCarritos = require('../controllers Firebase/controllers.carritos')
+
+//     case 'mongodb':
+//         controllersProductos = require('../controllers MongoDb/controllers.productos')
+//         controllersCarritos = require('../controllers MongoDb/controllers.carritos')    
+
+//     case 'sqlite':
+//         controllersProductos = require('../controllers Sqlite/controllers.productos')
+//         controllersCarritos = require('../controllers Sqlite/controllers.carritos')
+
+
 function serverRouter(app){
+    
     app.use("/api", router);
 
 
@@ -31,11 +29,11 @@ function serverRouter(app){
     router.get('/productos', controllersProductos.read)
     router.put('/updateproductos', controllersProductos.update)
     router.delete('/deleteproductos', controllersProductos.deleted)
-    // router.post('/producto/:id', controllersProductos.deleteProduct)
+    router.post('/producto/:id', controllersProductos.deleteProduct)
 
     router.post('/carritos', controllersCarritos.write)
     router.get('/carritos', controllersCarritos.read)
-    // router.delete('/carritos/:id', controllersCarritos.deleted)
+    router.delete('/carritos/:id', controllersCarritos.deleted)
 
 
     // Me trae todos los productos por id por GET en un JSON //

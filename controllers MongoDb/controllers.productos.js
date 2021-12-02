@@ -4,7 +4,7 @@ const { productosModel : db } = require('../config/db')
     try {
         let producto = req.body
         await db.create(producto);
-        res.send("Producto creado con exito!")
+        res.redirect('./loadproduct')
     } catch (error) {
         console.log('error en la creacion de producto' + error)
     }
@@ -48,9 +48,22 @@ const deleted = async (req, res) => {
     }
 }
 
+const deleteProduct = async (req, res) => {
+    try {
+        let { id } = req.params
+        await db.deleteOne(id)
+        res.send(`producto con el id ${id} eliminado`)
+        
+    } catch (error) {
+        console.log('error eliminando producto' + error)
+
+    }
+}
+
 module.exports = {
     write,
     read,
     update,
-    deleted
+    deleted,
+    deleteProduct
 }

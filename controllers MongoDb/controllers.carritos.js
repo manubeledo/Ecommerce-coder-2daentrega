@@ -23,7 +23,20 @@ const { carritosModel : db } = require('../config/db')
         }
     }
 
+    const deleted = async (req, res) => {
+        try {
+            let { id } = req.params
+            await db.deleteOne(id)
+            res.send(`carrito con el id ${id} eliminado`)
+            
+        } catch (error) {
+            console.log('error eliminando producto' + error)
+    
+        }
+    }
+
 module.exports = {
     write,
-    read
+    read,
+    deleted
 }
